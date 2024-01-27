@@ -28,6 +28,24 @@ int parse_num(std::vector<int>& digits, std::string number_str){
     return 0;
 }
 
+bool valid_card_len(std::vector<int>& digits){
+    enum CARD_TYPES {AMEX=3, VISA, MASTER, DISCOVER}; // the four major credit card types with their starting numbers.
+    int card_len;  // the number of a digits a card should have, depends on the card type
+    // determine the number of characters a card should should have, based on it's first digit
+    switch (digits[0]){
+    case AMEX:
+        card_len = 15;
+        break;
+    case VISA: case MASTER: case DISCOVER:
+        card_len = 16;
+        break;
+    default:
+        return false;
+    }
+    // return if the card has the correct number of digits
+    return digits.size() == card_len;
+}
+
 int main(int argc, char** argv){
     if (argc != 3){
         std::cerr << "Error: This program accepts exactly two arguments." << std::endl;
@@ -49,8 +67,8 @@ int main(int argc, char** argv){
         digits.clear();
         int parsed = parse_num(digits, tmp);
         // write the card number to the file if it's valid.
-        if (parsed == 0 && luhn_valid(digits))
-                  out << tmp << '\n';
+        if (parsed == 0 && valid_card_len(digits) && luhn_valid(digits))
+            out << tmp << '\n';
     }
     in.close();
     out.close();
