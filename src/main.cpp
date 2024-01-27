@@ -13,6 +13,7 @@ int get_digit(char digit){
     }
 }
 
+// reads digits from a string and pushes them into a referenced vector
 int parse_num(std::vector<int>& digits, std::string number_str){
     int digit;
     for (char i : number_str){
@@ -28,6 +29,7 @@ int parse_num(std::vector<int>& digits, std::string number_str){
     return 0;
 }
 
+// returns true if a card has the correct number of digits for it's starting digit, otherwise returns false
 bool valid_card_len(std::vector<int>& digits){
     enum CARD_TYPES {AMEX=3, VISA, MASTER, DISCOVER}; // the four major credit card types with their starting numbers.
     int card_len;  // the number of a digits a card should have, depends on the card type
