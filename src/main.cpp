@@ -24,8 +24,11 @@ int main(int argc, char** argv){
         digits.clear();
         int parsed = parse_num(digits, tmp);
         // write the card number to the file if it's valid.
-        if (parsed == 0 && valid_card_len(digits) && luhn_valid(digits))
-            out << tmp << '\n';
+        if (parsed == 0 && valid_card_len(digits) && luhn_valid(digits)){
+            for (int i = 0; i < digits.size(); i++)
+                out << digits[i];
+            out << "\n"; 
+        }
     }
     in.close();
     out.close();
